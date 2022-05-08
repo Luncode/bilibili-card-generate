@@ -1,0 +1,8 @@
+{
+    "rewrites": [
+      {
+        "source": "/bilibili/:match*",
+        "destination": "https://api.bilibili.com/:match*"
+      }
+    ]
+  }
