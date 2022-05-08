@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import UserCard from "./components/userCard";
 import { IBILIBILI_USER_INFO } from "./IType/interface";
 
 function App() {
@@ -35,17 +36,8 @@ function App() {
           <button onClick={getUserInfo}>获取</button>
         </div>
         {userInfo && (
-          <div className="userInfo">
-            <div className="">{userInfo?.data.name}</div>
-            <img className="userFace" src={userInfo?.data.face} alt="" />
-            <div className="userStatus">
-              <div>直播间：{userInfo.data.live_room.liveStatus == 1 ? '在线':'离线'}</div>
-              <div>用户等级：{userInfo.data.level}</div>
-              <div>硬币数量：{userInfo.data.coins}</div>
-            </div>
-          </div>
+         <UserCard userInfo={userInfo}/>
         )}
-        {/* <textarea value={userInfo?.data.coins}  /> */}
       </header>
     </div>
   );
