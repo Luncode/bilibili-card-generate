@@ -4,8 +4,9 @@ import { IBILIBILI_USER_INFO } from "./IType/interface";
 
 function App() {
   const [userInfo, setUserInfo] = useState<IBILIBILI_USER_INFO>();
-  const [MidNumber, setMidNumber] = useState<string>();
+  const [MidNumber, setMidNumber] = useState<string>('');
   const getUserInfo = () => {
+    if(!MidNumber) return
     fetch("/bilibili/x/space/acc/info?mid=" + MidNumber).then(async (res) => {
       setUserInfo((await res.json()) as IBILIBILI_USER_INFO);
       console.log(userInfo?.data);
