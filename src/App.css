@@ -28,10 +28,10 @@
   width: 100px;
   border-radius: 50%;
   border: 2px solid rgb(241, 97, 174);
-  margin: 10px 0;
+  margin: 10px;
   position: absolute;
   top: -35px;
-  left: -20px;
+  /* left: -20px; */
 }
 .user_link {
   position: absolute;
@@ -78,7 +78,7 @@
   position: relative;
 }
 .userName {
-  margin-left: 100px;
+  margin-left: 130px;
 }
 .bigvip {
   width: 30px;
