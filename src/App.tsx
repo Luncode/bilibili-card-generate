@@ -1,5 +1,5 @@
 import html2canvas from "html2canvas";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
 import UserCard from "./components/userCard";
 import { IBILIBILI_USER_INFO } from "./IType/interface";
@@ -8,6 +8,7 @@ function App() {
   const [userInfo, setUserInfo] = useState<IBILIBILI_USER_INFO>();
   const [MidNumber, setMidNumber] = useState<string>("");
   const [loadImages,setLoadImages] = useState("");
+  const elem: HTMLElement = document.getElementById('card') as HTMLElement
   const getUserInfo = () => {
     if (!MidNumber) return;
     fetch("/bilibili/x/space/acc/info?mid=" + MidNumber).then(async (res) => {
@@ -16,10 +17,11 @@ function App() {
     });
   };
   const loadImage = () => {
-    new html2canvas(document.getElementById("card"), {
+    //@ts-ignore
+    new html2canvas(elem, {
       useCORS: true,
       allowTaint: true,
-    }).then((canvas: any) => {
+    }).then((canvas: HTMLCanvasElement) => {
       setLoadImages(canvas.toDataURL())
       console.log(canvas.toDataURL());
     });
