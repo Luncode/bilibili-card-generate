@@ -7,12 +7,13 @@ import { IBILIBILI_USER_INFO } from "./IType/interface";
 function App() {
   const [userInfo, setUserInfo] = useState<IBILIBILI_USER_INFO>();
   const [MidNumber, setMidNumber] = useState<string>("");
-  const [loadImages,setLoadImages] = useState("");
-  const elem: HTMLElement = document.getElementById('card') as HTMLElement
+  const [loadImages, setLoadImages] = useState("");
+  const elem: HTMLElement = document.getElementById("card") as HTMLElement;
   const getUserInfo = () => {
     if (!MidNumber) return;
     fetch("/bilibili/x/space/acc/info?mid=" + MidNumber).then(async (res) => {
       setUserInfo((await res.json()) as IBILIBILI_USER_INFO);
+      loadImage();
       // console.log(userInfo?.data);
     });
   };
@@ -22,7 +23,7 @@ function App() {
       useCORS: true,
       allowTaint: true,
     }).then((canvas: HTMLCanvasElement) => {
-      setLoadImages(canvas.toDataURL())
+      setLoadImages(canvas.toDataURL());
       console.log(canvas.toDataURL());
     });
   };
@@ -47,22 +48,22 @@ function App() {
             }}
           />
           <button onClick={getUserInfo}>获取</button>
-          <button onClick={loadImage}>生成</button>
         </div>
         <div id="card">{userInfo && <UserCard userInfo={userInfo} />}</div>
-        <div>
-          <h4>复制base64代码</h4>
-          <textarea value={loadImages}/>
-        </div>
-        {
-          loadImages && (
-            <>
-              图片预览效果
-              <img src={loadImages} alt="" />
-            </>
-          )
-        }
-       
+
+        {loadImages && (
+          <>
+          {
+            loadImage()
+          }
+            <div>
+              <h4>复制base64代码</h4>
+              <textarea value={loadImages} />
+            </div>
+            图片预览效果
+            <img src={loadImages} alt="" />
+          </>
+        )}
       </header>
     </div>
   );
