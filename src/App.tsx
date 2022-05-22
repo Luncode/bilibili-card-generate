@@ -10,7 +10,7 @@ function App() {
     if(!MidNumber) return
     fetch("/bilibili/x/space/acc/info?mid=" + MidNumber).then(async (res) => {
       setUserInfo((await res.json()) as IBILIBILI_USER_INFO);
-      console.log(userInfo?.data);
+      // console.log(userInfo?.data);
     });
   };
   // useEffect(()=>{
