@@ -11,10 +11,13 @@ function App() {
   const elem: HTMLElement = document.getElementById("card") as HTMLElement;
   const getUserInfo = () => {
     if (!MidNumber) return;
-    fetch("/bilibili/x/space/acc/info?mid=" + MidNumber).then(async (res) => {
+    fetch("/bilibili/x/space/wbi/acc/info?mid=" + MidNumber).then(async (res) => {
       setUserInfo((await res.json()) as IBILIBILI_USER_INFO);
-      loadImage();
-      // console.log(userInfo?.data);
+      if(userInfo.data.face){
+        loadImage();
+      }else{
+        alert('未获取到数据')
+      }
     });
   };
   const loadImage = () => {
@@ -24,19 +27,11 @@ function App() {
       allowTaint: true,
     }).then((canvas: HTMLCanvasElement) => {
       setLoadImages(canvas.toDataURL());
-      console.log(canvas.toDataURL());
     });
   };
-  // useEffect(()=>{
-  //   fetch('/bilibili/x/space/acc/info?mid=22753506').then(res => {
-  //     setUserInfo((res.json() as unknown as IBILIBILI_USER_INFO))
-  //     console.log(userInfo?.data.name);
-  //   })
-  // },[])
   return (
     <div className="App">
       <header className="App-header">
-        <p>本项目使用Vite开发</p>
         <p>#bilibili-card-generate 生成用户卡片、视频卡片 部署Vercel</p>
         <p>正在工事中</p>
         <div className="MidNumber">
@@ -49,13 +44,11 @@ function App() {
           />
           <button onClick={getUserInfo}>获取</button>
         </div>
-        <div id="card">{userInfo && <UserCard userInfo={userInfo} />}</div>
+        <div id="card">{userInfo?.data?.face && <UserCard userInfo={userInfo} />}</div>
 
         {loadImages && (
           <>
-          {
-            loadImage()
-          }
+            {loadImage()}
             <div>
               <h4>复制base64代码</h4>
               <textarea value={loadImages} />
